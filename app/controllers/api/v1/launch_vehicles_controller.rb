@@ -28,8 +28,8 @@ class Api::V1::LaunchVehiclesController < ApplicationController
 
   def destroy
     if launch_vehicle
-      launch_vehicle.update(launch_vehicle_params)
-      render json: { message: "launch_vehicle #{launch_vehicle.name} deleted Successfully"}, status: :ok
+      launch_vehicle.destroy
+      render json: { message: "launch_vehicle deleted Successfully"}, status: :ok
     else
       render error: { error: "Unable to Delete launch_vehicle."}, status: 400
     end
