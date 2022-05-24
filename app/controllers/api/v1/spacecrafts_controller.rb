@@ -1,12 +1,35 @@
 class Api::V1::SpacecraftsController < ApplicationController
   def index
-    render json: spacecrafts, status: :ok
+    spacecraft_details = spacecrafts.map do |spacecraft|
+      launch_date = if spacecraft.launch.present?
+         spacecraft.launch.launch_date
+      else
+        "yet to be launched"
+      end
+      {
+        name: spacecraft.name,
+        weight: spacecraft.weight,
+        launch_vehicle: spacecraft.launch_vehicle.name,
+        launch_date: launch_date
+      }
+    end
+    render json: { spacecrafts: spacecraft_details }, status: :ok
   end
 
   def show
-    render json: spacecraft, status: :ok
+    launch_date = if spacecraft.launch.present?
+                    spacecraft.launch.launch_date
+                  else
+                    "yet to be launched"
+                  end
+    spacecraft_details = {
+      name: spacecraft.name,
+      weight: spacecraft.weight,
+      launch_vehicle: spacecraft.launch_vehicle.name,
+      launch_date: launch_date
+    }
+    render json: { spacecraft: spacecraft_details }, status: :ok
   end
-
   def create
     render json: { spacecraft: Spacecraft.create!(spacecraft_params) }
   end
@@ -23,7 +46,7 @@ class Api::V1::SpacecraftsController < ApplicationController
   private
 
     def spacecrafts
-      @_spacecrafts = Spacecraft.all
+      @_spacecrafts = Spacecraft.includes([:launch_vehicle, :launch]).all
     end
 
     def spacecraft

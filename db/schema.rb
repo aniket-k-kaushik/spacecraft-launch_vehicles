@@ -10,12 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_24_072109) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_24_204143) do
   create_table "launch_vehicles", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "payload_capacity", default: 0
+    t.boolean "reusable"
+  end
+
+  create_table "launches", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.date "launch_date"
+    t.string "launch_description"
+    t.bigint "launch_vehicle_id", null: false
+    t.bigint "spacecraft_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["launch_vehicle_id"], name: "index_launches_on_launch_vehicle_id"
+    t.index ["spacecraft_id"], name: "index_launches_on_spacecraft_id"
   end
 
   create_table "spacecrafts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -27,5 +39,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_24_072109) do
     t.index ["launch_vehicle_id"], name: "index_spacecrafts_on_launch_vehicle_id"
   end
 
+  add_foreign_key "launches", "launch_vehicles"
+  add_foreign_key "launches", "spacecrafts"
   add_foreign_key "spacecrafts", "launch_vehicles"
 end
