@@ -1,3 +1,0 @@
-class LaunchesController < ApplicationController
-
-end
