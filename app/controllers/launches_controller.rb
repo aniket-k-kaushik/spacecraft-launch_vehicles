@@ -1,0 +1,3 @@
+class LaunchesController < ApplicationController
+
+end

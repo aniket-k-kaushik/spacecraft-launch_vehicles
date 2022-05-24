@@ -6,5 +6,5 @@ class Launch < ApplicationRecord
   validates :launch_description, presence: true
   validates :launch_vehicle_id, presence: true
   validates :spacecraft_id, presence: true
-
+  
 end
