@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  launch_date: 2022-05-25
+  launch_vehicle: one
+
+two:
+  launch_date: 2022-05-25
+  launch_vehicle: two
