@@ -5,7 +5,8 @@ class Api::V1::LaunchVehiclesController < ApplicationController
 
   def show
     spacecraft_lists = launch_vehicle.spacecraft_lists
-    render json: { launch_vehicle: launch_vehicle, spacecraft_lists: spacecraft_lists }, status: :ok
+    launch_lists = launch_vehicle.launch_lists
+    render json: { launch_vehicle: launch_vehicle, spacecraft_lists: spacecraft_lists, launch_lists: launch_lists }, status: :ok
   end
 
   def create
@@ -28,7 +29,7 @@ class Api::V1::LaunchVehiclesController < ApplicationController
     end
 
     def launch_vehicle
-      @_launch_vehicle = LaunchVehicle.includes(:spacecrafts).find(params[:id])
+      @_launch_vehicle = LaunchVehicle.includes([:spacecrafts, :launches]).find(params[:id])
     end
 
     def launch_vehicle_params
