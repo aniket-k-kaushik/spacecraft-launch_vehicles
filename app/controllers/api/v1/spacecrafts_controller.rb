@@ -45,6 +45,6 @@ class Api::V1::SpacecraftsController < ApplicationController
     end
 
     def spacecraft_params
-      params.require(:spacecraft).permit(:name, :launch_vehicle_id)
+      params.require(:spacecraft).permit(:name, :weight, :launch_vehicle_id)
     end
 end
