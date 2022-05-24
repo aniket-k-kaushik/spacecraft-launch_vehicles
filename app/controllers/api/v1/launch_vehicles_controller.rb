@@ -32,6 +32,6 @@ class Api::V1::LaunchVehiclesController < ApplicationController
     end
 
     def launch_vehicle_params
-      params.require(:launch_vehicle).permit(:name, :payload_capacity)
+      params.require(:launch_vehicle).permit(:name, :payload_capacity, :reusable)
     end
 end
