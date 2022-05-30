@@ -1,6 +1,6 @@
 class Spacecraft < ApplicationRecord
   belongs_to :launch_vehicle
-
+  has_one :launch
 
   validates :name, presence: true
   validates :weight, presence: true, numericality: { greater_than_or_equal_to: 0 }
