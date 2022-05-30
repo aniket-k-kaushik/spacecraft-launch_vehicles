@@ -8,30 +8,16 @@ class Api::V1::SpacecraftsController < ApplicationController
   end
 
   def create
-    @spacecraft = Spacecraft.new(spacecraft_params)
-    if @spacecraft.save
-      render json: @spacecraft
-    else
-      render error: { error: "Unable to Create spacecraft."}, status: 400
-    end
+    render json: { spacecraft: Spacecraft.create!(spacecraft_params) }
   end
 
   def update
-    if spacecraft
-      spacecraft.update(spacecraft_params)
-      render json: spacecraft, status: :ok
-    else
-      render error: { error: "Unable to Update spacecraft."}, status: 400
-    end
+    spacecraft.update!(spacecraft_params)
+    render json: { spacecraft: }
   end
 
   def destroy
-    if spacecraft
-      spacecraft.destroy
-      render json: { message: "spacecraft deleted Successfully"}, status: :ok
-    else
-      render error: { error: "Unable to Delete spacecraft."}, status: 400
-    end
+    spacecraft.destroy
   end
 
   private
@@ -45,6 +31,6 @@ class Api::V1::SpacecraftsController < ApplicationController
     end
 
     def spacecraft_params
-      params.require(:spacecraft).permit(:name, :launch_vehicle_id)
+      params.require(:spacecraft).permit(:name, :weight, :launch_vehicle_id)
     end
 end
